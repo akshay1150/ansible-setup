@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: webserver
+spec:
+  containers:
+    - name: webserver
+      image: ubuntu
+      command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5000 ; done"]
+  restartPolicy: Never
