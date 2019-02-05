@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-pod
+  labels:
+    app: my-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-pod
+  template:
+    metadata:
+      labels:
+        app: my-pod
+    spec:
+      containers:
+      - name: my-pod
+        image: ubuntu
+        command: ["/bin/entrypoint.sh"]
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: wrapper
+          mountPath: /bin/entrypoint.sh
+#         readOnly: true
+          subPath: entrypoint.sh
+      volumes:
+      - name: wrapper
+        configMap:
+          defaultMode: 0777
+          name: wrapper
+
